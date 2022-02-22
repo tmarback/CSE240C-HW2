@@ -1,0 +1,12 @@
+__pycache__/
+bin/
+
+output/
+results/
+
+replacements_done/
+
+trace/
+traces
+traces_gz
+traces_done
