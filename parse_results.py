@@ -18,6 +18,11 @@ CPU \d+ cummulative IPC: (?P<ipc>\d+\.\d+) instructions: (?P<instructions>\d+) c
 \s*LLC WRITEBACK\s+ACCESS:\s+(?P<writeback_access>\d+)\s+HIT:\s+(?P<writeback_hit>\d+)\s+MISS:\s+(?P<writeback_miss>\d+)
 """ )
 
+def remove_all_stems( file: Path ):
+    while file.suffixes:
+        file = file.with_suffix( '' )
+    return file.stem
+
 def parse_results( file: Path ) -> Mapping[str, Union[int, float]]:
     
     with open( file, 'r' ) as f:
@@ -34,6 +39,7 @@ def main():
         {
             'replacement': replacement.name,
             'config': config.name,
+            'trace': remove_all_stems( result_file ),
             **parse_results( result_file ),
         } for replacement in RES_DIR.iterdir() for config in replacement.iterdir() for result_file in config.iterdir()
     ]
