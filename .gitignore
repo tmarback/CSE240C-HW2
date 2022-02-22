@@ -10,3 +10,5 @@ trace/
 traces
 traces_gz
 traces_done
+
+figures/
